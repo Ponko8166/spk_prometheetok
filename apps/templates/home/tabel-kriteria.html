@@ -1,0 +1,127 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Halaman Kriteria {% endblock %} 
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+    <!-- [ Main Content ] start -->
+    <section class="pcoded-main-container">
+        <div class="pcoded-wrapper">
+
+            <div class="pcoded-content">
+                <div class="pcoded-inner-content">
+                    <!-- [ breadcrumb ] start -->
+                    <div class="page-header">
+                        <div class="page-block">
+                            <div class="row align-items-center">
+                                <div class="col-md-12">
+                                    <div class="page-header-title">
+                                        <h5 class="m-b-10">Halaman Kriteria</h5>
+                                    </div>
+                                    <ul class="breadcrumb">
+                                        <li class="breadcrumb-item"><a href="/"><i class="feather icon-home"></i></a></li>
+                                        <li class="breadcrumb-item"><a href="/tabel-kriteria.html">Tabel Kriteria</a></li>
+                                        <!-- <li class="breadcrumb-item"><a href="javascript:">Basic Tables</a></li> -->
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- [ breadcrumb ] end -->
+                    <div class="main-body">
+                        <div class="page-wrapper">
+                            <!-- [ Main Content ] start -->
+                            <div class="row">
+                                
+                                <!-- [ Hover-table ] start -->
+                                <div class="col-xl-12">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h5>Tabel Kriteria</h5>
+                                            <span class="d-block m-t-5">Kriteria yang digunakan dalam perhitungan dalam Sistem Pendukung Keputusan (SPK) menggunakan metode PROMETHEE</span>
+                                        </div>
+                                        <div class="card-block table-border-style">
+                                            <div class="table-responsive">
+                                                <table class="table table-hover">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>No.</th>
+                                                            <th>Nama Kriteria</th>
+                                                            <th>Penjelasan</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        
+                                                        <tr>
+                                                            <td>1</td>
+                                                            <td>Total Followers</td>
+                                                            <td style="white-space: pre-wrap;">Jumlah orang yang mengikuti atau mengikuti akun pengguna tersebut. Jumlah pengikut dapat menunjukkan popularitas dan dapat mempengaruhi seberapa banyak orang yang melihat dan berinteraksi dengan konten yang diposting oleh pengguna tersebut. Jumlah pengikut juga dapat menjadi faktor penting bagi para pengiklan dan pemasar yang mencari kerjasama dengan pengguna TikTok untuk mempromosikan produk atau layanan mereka.</td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <td>2</td>
+                                                            <td>Total Likes</td>
+                                                            <td style="white-space: pre-wrap;">Jumlah orang yang menyukai atau menyetujui video yang diposting oleh pengguna. Ini adalah bentuk interaksi yang menunjukkan bahwa penonton menyukai konten tersebut dan menganggapnya menarik atau menghibur.</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>3</td>
+                                                            <td>Overall Engagement</td>
+                                                            <td style="white-space: pre-wrap;">Total interaksi atau keterlibatan yang diterima oleh suatu konten atau akun di platform media sosial. Ini mencakup berbagai bentuk interaksi, seperti likes, komentar, berbagi, dan tindakan lain yang dilakukan oleh pengguna terhadap konten tersebut. Overall Engagement memberikan gambaran menyeluruh tentang seberapa banyak orang yang terlibat dengan konten atau akun tersebut.</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>4</td>
+                                                            <td>Likes Rate</td>
+                                                            <td style="white-space: pre-wrap;">Rasio jumlah video disukai terhadap jumlah tayangan video. Ini menunjukkan seberapa sering orang-orang menyukai suatu video dibandingkan dengan seberapa banyak orang yang melihatnya</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>5</td>
+                                                            <td>Shares Rate</td>
+                                                            <td style="white-space: pre-wrap;">Rasio jumlah video dibagikan terhadap jumlah tayangan video. Ini menunjukkan seberapa sering orang-orang membagikan suatu video dibandingkan dengan jumlah orang yang melihatnya.</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>6</td>
+                                                            <td>Average Views</td>
+                                                            <td style="white-space: pre-wrap;">Jumlah rata-rata video di tayangan setiap video yang diposting. Ini memberikan gambaran tentang seberapa banyak orang yang menonton video tersebut secara keseluruhan</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>7</td>
+                                                            <td>Average Likes</td>
+                                                            <td style="white-space: pre-wrap;">Jumlah rata-rata video di sukai setiap video yang diposting. Ini menunjukkan seberapa banyak orang yang menyukai konten tersebut secara rata-rata</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>8</td>
+                                                            <td>Average Shares</td>
+                                                            <td style="white-space: pre-wrap;">Jumlah rata-rata orang membagikan video setiap video yang diposting. Ini menunjukkan seberapa banyak orang membagikan konten tersebut secara rata-rata</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>9</td>
+                                                            <td>Estimasi Harga</td>
+                                                            <td style="white-space: pre-wrap;">Perkiraan harga yang mungkin diterima dari perusahaan atau pemasar jika pemilik akun TikTok bekerja sama dengan perusahaan atau seseorang untuk mempromosikan produk atau layanan mereka melalui video di TikTok. Harga pada kriteria ini hanyalah berupa estimasi sehingga dapat lebih tinggi atau lebih rendah tergantung faktor-faktor tertentu</td>
+                                                        </tr>
+                                                        
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- [ Hover-table ] end -->
+
+                            </div>
+                            <!-- [ Main Content ] end -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </section>
+    <!-- [ Main Content ] end -->
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

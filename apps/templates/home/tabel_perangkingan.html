@@ -1,0 +1,188 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Halaman Peringkat {% endblock %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+<!-- [ Main Content ] start -->
+<section class="pcoded-main-container">
+    <div class="pcoded-wrapper">
+
+        <div class="pcoded-content">
+            <div class="pcoded-inner-content">
+                <!-- [ breadcrumb ] start -->
+                <div class="page-header">
+                    <div class="page-block">
+                        <div class="row align-items-center">
+                            <div class="col-md-12">
+                                <div class="page-header-title">
+                                    <h5 class="m-b-10">Hasil Pemeringkatan</h5>
+                                </div>
+                                <ul class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="/"><i class="feather icon-home"></i></a></li>
+                                    <li class="breadcrumb-item"><a
+                                            href="{{url_for('authentication_blueprint.perhitungan')}}">Tabel
+                                            Peringkat</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- [ breadcrumb ] end -->
+                <div class="main-body">
+                    <div class="page-wrapper">
+                        <!-- [ Main Content ] start -->
+                        <div class="row">
+
+
+                            <!-- [ Hover-table ] start -->
+                            <div class="col-xl-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h5>Tabel Peringkat</h5>
+                                        <br>
+                                        <span class="d-block m-t-5"></span>
+                                        <h6>Berikut adalah hasil dari perhitungan metode Sistem Pendukung Keputusan
+                                            (SPK) untuk memilih alternatif akun Endorse TikTok menggunakan metode
+                                            Prefrence Ranking Organization Method for Enrichment Evaluation</h6>
+                                        <br>
+                                        <a href="{{url_for('authentication_blueprint.perhitungan')}}"
+                                            class="btn btn-primary m-t-5">PROSES</a>
+                                        <a class="btn btn-primary m-t-5" data-toggle="collapse" href="#collapseNetFlow"
+                                            role="button" aria-expanded="true" aria-controls="collapseNetFlow">Tabel Net
+                                            Flow</a>
+
+                                        <!-- Button trigger modal -->
+                                        <button type="button" class="btn btn-danger m-t-5" data-toggle="modal"
+                                            data-target="#modalDeletePeringkat">
+                                            Hapus Hasil
+                                        </button>
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="modalDeletePeringkat" tabindex="-1" role="dialog"
+                                            aria-labelledby="modalDeletePeringkatLabel" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="modalDeletePeringkatLabel">Modal
+                                                            title</h5>
+                                                        <button type="button" class="close" data-dismiss="modal"
+                                                            aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <p class="mb-0">Apakah Anda yaking ingin menghapus seluruh hasil
+                                                            perhitungan PROMETHEE?</p>
+                                                        <span>Anda bisa mendapatkan hasil lagi dengan mengklik tombol
+                                                            "PROSES"</span>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                            data-dismiss="modal">Tidak</button>
+                                                        <a href="{{url_for('authentication_blueprint.delete_data_peringkat')}}"
+                                                            class="btn btn-danger m-t-5">Delete</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="collapse" id="collapseNetFlow">
+                                            <div class="card-body">
+                                                <div class="card-block table-border-style">
+                                                    <div class="table-responsive">
+                                                        <table class="table table-hover">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Peringkat</th>
+                                                                    <th>Nama</th>
+                                                                    <!-- <th>Kode</th> -->
+                                                                    <th>Net Flow</th>
+                                                                    <th>Leaving Flow</th>
+                                                                    <th>Entering Flow</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+
+                                                                {% for record in data_ranking %}
+                                                                <tr>
+                                                                    <td>{{record.peringkat}}</td>
+                                                                    <td><a
+                                                                            href="https://www.tiktok.com/{{record.alternatif_akun}}">
+                                                                            {{record.alternatif_akun}}</a></td>
+                                                                    <!-- <td>A{{record.alternatif_id}}</td> -->
+                                                                    <td>{{record.net_flow}}</td>
+                                                                    <td>{{record.leaving_flow}}</td>
+                                                                    <td>{{record.entering_flow}}</td>
+                                                                </tr>
+                                                                {% endfor %}
+
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-block table-border-style">
+                                        <div class="table-responsive">
+                                            <table class="table table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Peringkat</th>
+                                                        <th>Nama Akun</th>
+                                                        <th>Follower</th>
+                                                        <th>Overall Engagement</th>
+                                                        <th>Average Views</th>
+                                                        <th>Estimasi Harga (USD) per post</th>
+                                                        <th style="white-space: pre-wrap;">Keterangan</th>
+                                                        <!-- <th>Peringkat</th>
+                                                        <th>Kode</th>
+                                                        <th>Net Flow</th>
+                                                        <th>Leaving Flow</th>
+                                                        <th>Entering Flow</th> -->
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+
+                                                    {% for record in data_ranking %}
+                                                    <tr>
+                                                        <td>{{record.peringkat}}</td>
+                                                        <td><a href="https://www.tiktok.com/{{record.alternatif_akun}}">
+                                                                {{record.alternatif_akun}}</a> </td>
+                                                        <td>{{record.total_follower}}</td>
+                                                        <td>{{record.overall_engagement}}</td>
+                                                        <td>{{record.average_view}}</td>
+                                                        <td>{{record.harga}}</td>
+                                                        <td>{{record.keterangan}}</td>
+                                                        <!-- <td>{{record.peringkat}}</td>
+                                                        <td>A{{record.alternatif_id}}</td>
+                                                        <td>{{record.net_flow}}</td>
+                                                        <td>{{record.leaving_flow}}</td>
+                                                        <td>{{record.entering_flow}}</td> -->
+                                                    </tr>
+                                                    {% endfor %}
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- [ Hover-table ] end -->
+                        </div>
+                        <!-- [ Main Content ] end -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+<!-- [ Main Content ] end -->
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

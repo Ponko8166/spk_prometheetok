@@ -1,0 +1,20 @@
+
+# coba1
+# @blueprint.route('/alternatif/update/', methods=['POST','GET'])
+# def update_alternatif():
+    
+#     if request.method == 'POST':
+#         record = tabelAlternative.query.get(request.form.get(id))
+#         record.alternatif_akun = request.form['alternatif_akun']
+#         record.total_follower = request.form['total_follower']
+#         record.total_likes = request.form['total_likes']
+#         record.overall_engagement = request.form['overall_engagement']
+#         record.likes_rate = request.form['likes_rate']
+#         record.shares_rate = request.form['shares_rate']
+#         record.average_view = request.form['average_view']
+#         record.average_likes = request.form['average_likes']
+#         record.average_share = request.form['average_share']
+#         record.keterangan = request.form['keterangan']
+#         record.harga = request.form['harga']
+#         db.session.commit()
+#     return render_template('/home/update_alternatif.html', records=record)

@@ -1,0 +1,328 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Halaman Alternatif {% endblock %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+<!-- [ Main Content ] start -->
+<section class="pcoded-main-container">
+    <div class="pcoded-wrapper">
+
+        <div class="pcoded-content">
+            <div class="pcoded-inner-content">
+                <!-- [ breadcrumb ] start -->
+                <div class="page-header">
+                    <div class="page-block">
+                        <div class="row align-items-center">
+                            <div class="col-md-12">
+                                <div class="page-header-title">
+                                    <h5 class="m-b-10">Halaman Alternatif</h5>
+                                </div>
+                                <ul class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="/"><i class="feather icon-home"></i></a></li>
+                                    <li class="breadcrumb-item"><a
+                                            href="{{url_for('authentication_blueprint.retrieve_alternatif')}}">Tabel
+                                            Alternatif</a></li>
+                                    <!-- <li class="breadcrumb-item"><a href="javascript:">Basic Tables</a></li> -->
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- [ breadcrumb ] end -->
+                <div class="main-body">
+                    <div class="page-wrapper">
+                        <!-- [ Main Content ] start -->
+                        <div class="row">
+                            <!-- [  ] start -->
+                            <div class="col-xl-12">
+                                <div class="card">
+
+                                    <div class="card-header">
+                                        <h4>Anda dapat mengunjungi <a href="https://countik.com/tiktok-analytics/"
+                                                style="font-family: Nunito,sans-serif; color: #000;">Countik.</a> untuk
+                                            mendapatkan data-data yang diperlukan. Lalu
+                                            masukkan nama akun TikTok yang ingin dijadikan alterntif untuk perhitungan
+                                            SPK pemilihan akun Endorse dengan metode PROMETHEE</h4>
+                                        <br><a class="btn btn-primary m-t-5" data-toggle="collapse"
+                                            href="#createAlternatifCollapse" role="button" aria-expanded="true"
+                                            aria-controls="createAlternatifCollapse">Tambah Alternatif</a>
+                                        <!-- Button trigger modal -->
+                                        <button type="button" class="btn btn-danger m-t-5" data-toggle="modal"
+                                            data-target="#modalDeleteSeluruhAlternatif">
+                                            Hapus Data
+                                        </button>
+
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="modalDeleteSeluruhAlternatif" tabindex="-1"
+                                            role="dialog" aria-labelledby="modalDeleteSeluruhAlternatifLabel"
+                                            aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="modalDeleteSeluruhAlternatifLabel">
+                                                            Hapus Data</h5>
+                                                        <button type="button" class="close" data-dismiss="modal"
+                                                            aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <p class="mb-0">Apakah Anda yaking ingin menghapus seluruh data
+                                                            alternatif?</p>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                            data-dismiss="modal">Tidak</button>
+                                                        <a href="{{ url_for('authentication_blueprint.delete_data_alternatif') }}"
+                                                            class="btn btn-danger m-t-5">Iya, Hapus Semua Data</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <!-- Form Create -->
+                                    <div class="collapse" id="createAlternatifCollapse">
+                                        <div class="card-body">
+                                            <form class="row"
+                                                action="{{ url_for('authentication_blueprint.create_alternatif') }}"
+                                                method="POST">
+                                                <div class="col-md-6">
+                                                    <div>
+                                                        <div class="form-group">
+                                                            <label>Akun</label>
+                                                            <input type="text" class="form-control"
+                                                                placeholder="Contoh: @khaby.lame"
+                                                                name="alternatif_akun">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>Total Follower</label>
+                                                            <input type="text" class="form-control"
+                                                                placeholder="Contoh: 161,973,134" name="total_follower">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>Total Likes</label>
+                                                            <input type="text" class="form-control"
+                                                                placeholder="Contoh: 2,415,244,204" name="total_likes">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>Overall Engagement</label>
+                                                            <input type="text" class="form-control"
+                                                                placeholder="Contoh: 7.05%" name="overall_engagement">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>Likes Rate</label>
+                                                            <input type="text" class="form-control"
+                                                                placeholder="Contoh:  6.85%" name="likes_rate">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>Shares Rate</label>
+                                                            <input type="text" class="form-control"
+                                                                placeholder="Contoh: 0.11%" name="shares_rate">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div>
+                                                        <div class="form-group">
+                                                            <label>Average Views</label>
+                                                            <input type="text" class="form-control"
+                                                                placeholder="Contoh: 5,044,342" name="average_view">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>Average Likes</label>
+                                                            <input type="text" class="form-control"
+                                                                placeholder="Contoh: 345,726" name="average_likes">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>Average Shares</label>
+                                                            <input type="text" class="form-control"
+                                                                placeholder="Contoh: 5,460" name="average_share">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>Estimasi Harga</label>
+                                                            <input type="text" class="form-control"
+                                                                placeholder="Contoh: $121,374" name="harga">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>Keterangan</label>
+                                                            <input type="text" class="form-control"
+                                                                placeholder="Contoh: Content Creator, Memes, Comedy"
+                                                                name="keterangan">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div>
+                                                        <div class="form-group">
+                                                            <button type="submit"
+                                                                class="btn btn-primary">Submit</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <!-- [  ] end -->
+
+                            <!-- [ Hover-table ] start -->
+                            <div class="col-xl-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h3>Tabel Alternatif</h3>
+                                        <!-- <span class="d-block m-t-5">use class <code>table-hover</code> inside table
+                                                element</span> -->
+                                        <h4 class="d-block m-t-5">Alternatif adalah pilihan yang akan dievaluasi dan
+                                            dibandingkan menggunakan metode PROMETHEE untuk menentukan akun endorse yang
+                                            terbaik berdasarkan kriteria yang ada</h4>
+                                    </div>
+                                    <div class="card-block table-border-style">
+                                        <div class="table-responsive">
+                                            <table class="table table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <!-- <th>ID Alternatif</th> -->
+                                                        <th>Alternatif Akun</th>
+                                                        <th>Total Follower</th>
+                                                        <th>Total Likes</th>
+                                                        <th>Overall Engagement</th>
+                                                        <th>Likes Rate</th>
+                                                        <th>Share Rate</th>
+                                                        <th>Average Views</th>
+                                                        <th>Average Likes</th>
+                                                        <th>Average Share</th>
+                                                        <th>Estimasi Harga</th>
+                                                        <th>Keterangan</th>
+                                                        <th></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {% for record in records %}
+                                                    <tr>
+                                                        <!-- <td scope="row">{{record.id}}</td> -->
+                                                        <td><a href="https://www.tiktok.com/{{record.alternatif_akun}}">
+                                                                {{record.alternatif_akun}}</a> </td>
+                                                        <td>{{record.total_follower}}</td>
+                                                        <td>{{record.total_likes}}</td>
+                                                        <td>{{record.overall_engagement}}</td>
+                                                        <td>{{record.likes_rate}}</td>
+                                                        <td>{{record.shares_rate}}</td>
+                                                        <td>{{record.average_view}}</td>
+                                                        <td>{{record.average_likes}}</td>
+                                                        <td>{{record.average_share}}</td>
+                                                        <td>{{record.harga}}</td>
+                                                        <td style="white-space: pre-wrap;">{{record.keterangan}}</td>
+                                                        <td>
+                                                            <a href="{{ url_for('authentication_blueprint.update', id=record.id) }}"
+                                                                class="btn-warning btn-sm">Edit</a>
+                                                            <!-- Button trigger modal -->
+                                                            <button type="button" class="btn-danger" data-toggle="modal"
+                                                                data-target="#modalDeleteAlternatif">
+                                                                Delete
+                                                            </button>
+                                                            <!-- Modal -->
+                                                            <div class="modal fade" id="modalDeleteAlternatif"
+                                                                tabindex="-1" role="dialog"
+                                                                aria-labelledby="modalDeleteAlternatifLabel"
+                                                                aria-hidden="true">
+                                                                <div class="modal-dialog" role="document">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                            <h5 class="modal-title"
+                                                                                id="modalDeleteAlternatifLabel">Hapus
+                                                                                Alternatif</h5>
+                                                                            <button type="button" class="close"
+                                                                                data-dismiss="modal" aria-label="Close">
+                                                                                <span aria-hidden="true">&times;</span>
+                                                                            </button>
+                                                                        </div>
+                                                                        <div class="modal-body">
+                                                                            <p class="mb-0">Apakah Anda yaking ingin
+                                                                                menghapus alternatif
+                                                                                {{record.alternatif_akun}}?</p>
+                                                                        </div>
+                                                                        <div class="modal-footer">
+                                                                            <button type="button"
+                                                                                class="btn btn-secondary"
+                                                                                data-dismiss="modal">Tidak</button>
+                                                                            <!-- <button type="button"
+                                                                                class="btn btn-primary">Save
+                                                                                changes</button> -->
+                                                                            <a href="{{ url_for('authentication_blueprint.delete', id=record.id) }}"
+                                                                                class="btn btn-danger">Iya Hapus</a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    {% endfor %}
+
+                                                    <div class="pagination">
+                                                        <ul class="pagination">
+                                                            {% if records.has_prev %}
+                                                            <li class="page-item"><a class="page-link"
+                                                                    href="{{ url_for('authentication_blueprint.retrieve_alternatif', page=records.prev_num) }}">Previous</a>
+                                                            </li>
+                                                            {% else %}
+                                                            <li class="page-item disabled"><span
+                                                                    class="page-link">Previous</span></li>
+                                                            {% endif %}
+
+                                                            {% for page_num in records.iter_pages() %}
+                                                            {% if page_num %}
+                                                            {% if records.page == page_num %}
+                                                            <li class="page-item active"><span class="page-link">{{
+                                                                    page_num }}</span></li>
+                                                            {% else %}
+                                                            <li class="page-item"><a class="page-link"
+                                                                    href="{{ url_for('authentication_blueprint.retrieve_alternatif', page=page_num) }}">{{
+                                                                    page_num }}</a></li>
+                                                            {% endif %}
+                                                            {% else %}
+                                                            <li class="page-item disabled"><span
+                                                                    class="page-link">...</span></li>
+                                                            {% endif %}
+                                                            {% endfor %}
+
+                                                            {% if records.has_next %}
+                                                            <li class="page-item"><a class="page-link"
+                                                                    href="{{ url_for('authentication_blueprint.retrieve_alternatif', page=records.next_num) }}">Next</a>
+                                                            </li>
+                                                            {% else %}
+                                                            <li class="page-item disabled"><span
+                                                                    class="page-link">Next</span></li>
+                                                            {% endif %}
+                                                        </ul>
+                                                    </div>
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- [ Hover-table ] end -->
+
+
+                            </div>
+                            <!-- [ Main Content ] end -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+</section>
+<!-- [ Main Content ] end -->
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

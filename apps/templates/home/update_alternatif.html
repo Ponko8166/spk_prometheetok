@@ -1,0 +1,143 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Halaman Update Alternatif {% endblock %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+<!-- [ Main Content ] start -->
+<div class="pcoded-main-container">
+    <div class="pcoded-wrapper">
+
+        <div class="pcoded-content">
+            <div class="pcoded-inner-content">
+                <!-- [ breadcrumb ] start -->
+                <div class="page-header">
+                    <div class="page-block">
+                        <div class="row align-items-center">
+                            <div class="col-md-12">
+                                <div class="page-header-title">
+                                    <h5 class="m-b-10">Form Edit Alternatif</h5>
+                                </div>
+                                <ul class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="/"><i class="feather icon-home"></i></a></li>
+                                    <li class="breadcrumb-item"><a href="{{url_for('authentication_blueprint.retrieve_alternatif')}}">Tabel Alternatif</a></li>
+                                    <li class="breadcrumb-item"><a href="javascript:">Edit Alternatif</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- [ breadcrumb ] end -->
+                <div class="main-body">
+                    <div class="page-wrapper">
+                        <!-- [ Main Content ] start -->
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h5>Edit Alternatif</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <h5>Edit data sesuai dengan format, jika sudah kemudian klik Simpan</h5>
+                                        <hr>
+                                        <form class="row" method="POST" action="{{ url_for('authentication_blueprint.update', id=record.id) }}">
+                                            <div class="col-md-6">
+                                                <div>
+                                                    <div class="form-group">
+                                                        <label>Akun</label>
+                                                        <input type="text" class="form-control"
+                                                            value="{{record.alternatif_akun}}" name="alternatif_akun"
+                                                            id="alternatif_akun">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Total Follower</label>
+                                                        <input type="text" class="form-control"
+                                                            value="{{record.total_follower}}" name="total_follower"
+                                                            id="total_follower">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Total Likes</label>
+                                                        <input type="text" class="form-control"
+                                                            value="{{record.total_likes}}" name="total_likes"
+                                                            id="total_likes">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Overall Engagement</label>
+                                                        <input type="text" class="form-control"
+                                                            value="{{record.overall_engagement}}"
+                                                            name="overall_engagement" id="overall_engagement">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Likes Rate</label>
+                                                        <input type="text" class="form-control"
+                                                            value="{{record.likes_rate}}" name="likes_rate"
+                                                            id="likes_rate">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Shares Rate</label>
+                                                        <input type="text" class="form-control"
+                                                            value="{{record.shares_rate}}" name="shares_rate"
+                                                            id="shares_rate">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div>
+                                                    <div class="form-group">
+                                                        <label>Average Views</label>
+                                                        <input type="text" class="form-control"
+                                                            value="{{record.average_view}}" name="average_view"
+                                                            id="average_view">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Average Likes</label>
+                                                        <input type="text" class="form-control"
+                                                            value="{{record.average_likes}}" name="average_likes"
+                                                            id="average_likes">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Average Shares</label>
+                                                        <input type="text" class="form-control"
+                                                            value="{{record.average_share}}" name="average_share"
+                                                            id="average_share">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Estimasi Harga</label>
+                                                        <input type="text" class="form-control"
+                                                            value="{{record.harga}}" name="harga"
+                                                            id="harga">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Keterangan</label>
+                                                        <input type="text" class="form-control"
+                                                            value="{{record.keterangan}}" name="keterangan"
+                                                            id="keterangan">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card-footer">
+                                                <div class="form-group">
+                                                    <button type="submit" class="btn btn-primary">Simpan</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- [ Main Content ] end -->
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}
