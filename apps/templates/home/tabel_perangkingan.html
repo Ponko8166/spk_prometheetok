@@ -49,8 +49,14 @@
                                             (SPK) untuk memilih alternatif akun Endorse TikTok menggunakan metode
                                             Prefrence Ranking Organization Method for Enrichment Evaluation</h6>
                                         <br>
+                                        <form action="{{url_for('authentication_blueprint.perhitungan1')}}" method="post">
+                                            <label for="keyword">Kategori:</label>
+                                            <input type="text" id="keyword" name="keyword" required>
+                                            <button type="submit" class="btn btn-primary m-t-5">Hitung Dengan Kategori</button>
+                                        </form>
+                                        <br>
                                         <a href="{{url_for('authentication_blueprint.perhitungan')}}"
-                                            class="btn btn-primary m-t-5">PROSES</a>
+                                            class="btn btn-primary m-t-5">Hitung Tanpa Kategori</a>
                                         <a class="btn btn-primary m-t-5" data-toggle="collapse" href="#collapseNetFlow"
                                             role="button" aria-expanded="true" aria-controls="collapseNetFlow">Tabel Net
                                             Flow</a>
@@ -97,7 +103,6 @@
                                                                 <tr>
                                                                     <th>Peringkat</th>
                                                                     <th>Nama</th>
-                                                                    <!-- <th>Kode</th> -->
                                                                     <th>Net Flow</th>
                                                                     <th>Leaving Flow</th>
                                                                     <th>Entering Flow</th>
@@ -111,7 +116,6 @@
                                                                     <td><a
                                                                             href="https://www.tiktok.com/{{record.alternatif_akun}}">
                                                                             {{record.alternatif_akun}}</a></td>
-                                                                    <!-- <td>A{{record.alternatif_id}}</td> -->
                                                                     <td>{{record.net_flow}}</td>
                                                                     <td>{{record.leaving_flow}}</td>
                                                                     <td>{{record.entering_flow}}</td>
@@ -136,10 +140,9 @@
                                                         <th>Overall Engagement</th>
                                                         <th>Average Views</th>
                                                         <th>Estimasi Harga (USD) per post</th>
-                                                        <th style="white-space: pre-wrap;">Keterangan</th>
-                                                        <!-- <th>Peringkat</th>
+                                                        <th style="white-space: pre-wrap;">Kategori</th>
                                                         <th>Kode</th>
-                                                        <th>Net Flow</th>
+                                                        <!-- <th>Net Flow</th>
                                                         <th>Leaving Flow</th>
                                                         <th>Entering Flow</th> -->
                                                     </tr>
@@ -154,11 +157,10 @@
                                                         <td>{{record.total_follower}}</td>
                                                         <td>{{record.overall_engagement}}</td>
                                                         <td>{{record.average_view}}</td>
-                                                        <td>{{record.harga}}</td>
-                                                        <td>{{record.keterangan}}</td>
-                                                        <!-- <td>{{record.peringkat}}</td>
+                                                        <td>Rp {{record.harga}}</td>
+                                                        <td>{{record.kategori}}</td>
                                                         <td>A{{record.alternatif_id}}</td>
-                                                        <td>{{record.net_flow}}</td>
+                                                        <!-- <td>{{record.net_flow}}</td>
                                                         <td>{{record.leaving_flow}}</td>
                                                         <td>{{record.entering_flow}}</td> -->
                                                     </tr>

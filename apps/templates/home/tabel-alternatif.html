@@ -149,10 +149,10 @@
                                                                 placeholder="Contoh: $121,374" name="harga">
                                                         </div>
                                                         <div class="form-group">
-                                                            <label>Keterangan</label>
+                                                            <label>Kategori</label>
                                                             <input type="text" class="form-control"
                                                                 placeholder="Contoh: Content Creator, Memes, Comedy"
-                                                                name="keterangan">
+                                                                name="kategori">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -199,7 +199,7 @@
                                                         <th>Average Likes</th>
                                                         <th>Average Share</th>
                                                         <th>Estimasi Harga</th>
-                                                        <th>Keterangan</th>
+                                                        <th>Kategori</th>
                                                         <th></th>
                                                     </tr>
                                                 </thead>
@@ -217,8 +217,8 @@
                                                         <td>{{record.average_view}}</td>
                                                         <td>{{record.average_likes}}</td>
                                                         <td>{{record.average_share}}</td>
-                                                        <td>{{record.harga}}</td>
-                                                        <td style="white-space: pre-wrap;">{{record.keterangan}}</td>
+                                                        <td>Rp {{record.harga}}</td>
+                                                        <td style="white-space: pre-wrap;">{{record.kategori}}</td>
                                                         <td>
                                                             <a href="{{ url_for('authentication_blueprint.update', id=record.id) }}"
                                                                 class="btn-warning btn-sm">Edit</a>

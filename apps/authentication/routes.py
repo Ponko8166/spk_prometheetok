@@ -5,6 +5,7 @@ Copyright (c) 2019 - present AppSeed.us
 
 from flask import render_template, redirect, request, url_for
 import numpy as np
+from sqlalchemy import text
 from flask_paginate import get_page_parameter, Pagination
 from flask_login import (
     current_user,
@@ -173,7 +174,7 @@ def create_alternatif():
         average_likes = int(request.form['average_likes'].replace(',', ''))
         average_share = int(request.form['average_share'].replace(',', ''))
         harga = int(request.form['average_share'].replace('%', ''))
-        keterangan = request.form['keterangan']
+        kategori = request.form['kategori']
 
         tabelAlternative_data = tabelAlternative(alternatif_akun=alternatif_akun, 
                               total_follower=total_follower, 
@@ -184,7 +185,7 @@ def create_alternatif():
                               average_view=average_view, 
                               average_likes=average_likes, 
                               average_share=average_share,
-                              keterangan=keterangan,
+                              kategori=kategori,
                               harga=harga)
         
         db.session.add(tabelAlternative_data)
@@ -206,7 +207,7 @@ def update(id):
         record.average_likes = request.form['average_likes']
         record.average_share = request.form['average_share']
         record.harga = request.form['harga']
-        record.keterangan = request.form['keterangan']
+        record.kategori = request.form['kategori']
         db.session.commit()
         return redirect(url_for('authentication_blueprint.retrieve_alternatif'))
     return render_template('/home/update_alternatif.html', record=record)
@@ -220,6 +221,8 @@ def delete(id):
 
 @blueprint.route('/alternatif')
 def retrieve_alternatif():
+    db.session.query(tabelRanking).delete()
+    db.session.commit()
     page = request.args.get('page', 1, type=int)
     per_page = 5  # Jumlah record per halaman
     records = tabelAlternative.query.paginate(page=page, per_page=per_page, error_out=False)
@@ -274,10 +277,10 @@ def perhitungan():
     indeks_preferensi_multikriteria = np.mean(nilai_preferensi, axis=2)
     leaving_flow = np.sum(indeks_preferensi_multikriteria, axis=1)*(1/(jum_criteria-1))
     entering_flow = np.sum(indeks_preferensi_multikriteria, axis=0)*(1/(jum_criteria-1))
-    leaving_flow = np.round(leaving_flow, 2)
-    entering_flow = np.round(entering_flow, 2)
+    leaving_flow = np.round(leaving_flow, 3)
+    entering_flow = np.round(entering_flow, 3)
     net_flow = leaving_flow - entering_flow
-    net_flow = np.round(net_flow, 2)
+    net_flow = np.round(net_flow, 3)
 
     ranking = np.argsort(-net_flow)
 
@@ -301,7 +304,7 @@ def perhitungan():
                 tabelRanking.net_flow,
                 tabelAlternative.total_follower, tabelAlternative.overall_engagement,
                 tabelAlternative.average_view, tabelAlternative.harga,
-                tabelAlternative.keterangan, tabelRanking.alternatif_id]
+                tabelAlternative.kategori, tabelRanking.alternatif_id]
     data_ranking = db.session.query(*view_columns).join(tabelAlternative, tabelRanking.alternatif_id == tabelAlternative.id)
     return render_template("/home/tabel_perangkingan.html", data_ranking=data_ranking)
 # END Perhitungan metode
@@ -321,3 +324,89 @@ def delete_data_alternatif():
     db.session.commit()
     return redirect(url_for('authentication_blueprint.retrieve_alternatif'))
 # END Delete tabel peringkat
+
+@blueprint.route('/perangkingan1', methods=['GET', 'POST'])
+def perhitungan1():
+    if request.method == 'POST':
+        keyword = request.form['keyword']  # Ambil keyword dari form
+
+        # Membuat query untuk view berdasarkan kata kunci di kolom kategori
+        create_view_query = f'''
+        CREATE VIEW IF NOT EXISTS view_kategori_keyword AS
+        SELECT * FROM tabel_alternatif
+        WHERE kategori LIKE '%{keyword}%'
+        '''
+
+        # Eksekusi query untuk membuat view
+        with db.engine.connect() as connection:
+            connection.execute(text(create_view_query))
+
+        jumlah_records = len(db.session.query(tabelAlternative).filter(text(f"kategori LIKE '%{keyword}%'")).all())
+        if jumlah_records < 2:
+            return redirect(url_for('authentication_blueprint.retrieve_alternatif'))
+
+        try:
+            db.session.query(tabelRanking).delete()
+            db.session.commit()
+        except Exception as e:
+            db.session.rollback()
+            return redirect(url_for('authentication_blueprint.internal_error'))
+
+        # Mendapatkan data dari view
+        data = db.session.query(tabelAlternative).from_statement(text("SELECT * FROM view_kategori_keyword")).all()
+
+        # Membuat matriks alternatif
+        data_matrix = np.array([[row.total_follower, row.total_likes, row.overall_engagement,
+                                 row.likes_rate, row.shares_rate, row.average_view, row.average_likes,
+                                 row.average_share, row.harga] for row in data])
+
+        jum_criteria = data_matrix.shape[1]
+        jum_alternatives = data_matrix.shape[0]
+        cost_benefit = [True, True, True, True, True, True, True, True, False]  # True = benefit/maksimasi | False = cost/minimasi
+        nilai_preferensi = np.zeros((jum_alternatives, jum_alternatives, jum_criteria))
+
+        for k in range(jum_criteria):
+            for i in range(jum_alternatives):
+                for j in range(jum_alternatives):
+                    if cost_benefit[k]:
+                        if (data_matrix[i, k] - data_matrix[j, k]) > 0:
+                            nilai_preferensi[i, j, k] = 1
+                        else:
+                            nilai_preferensi[i, j, k] = 0
+                    else:
+                        if (data_matrix[i, k] - data_matrix[j, k]) <= 0:
+                            nilai_preferensi[i, j, k] = 1
+                        else:
+                            nilai_preferensi[i, j, k] = 0
+
+        indeks_preferensi_multikriteria = np.mean(nilai_preferensi, axis=2)
+        leaving_flow = np.sum(indeks_preferensi_multikriteria, axis=1) * (1 / (jum_criteria - 1))
+        entering_flow = np.sum(indeks_preferensi_multikriteria, axis=0) * (1 / (jum_criteria - 1))
+        leaving_flow = np.round(leaving_flow, 3)
+        entering_flow = np.round(entering_flow, 3)
+        net_flow = leaving_flow - entering_flow
+        net_flow = np.round(net_flow, 3)
+
+        ranking = np.argsort(-net_flow)
+
+        for i, index in enumerate(ranking):
+            alternatif = data[index]
+            tabelPerangkingan = tabelRanking(
+                peringkat=i + 1,
+                alternatif_akun=alternatif.alternatif_akun,
+                alternatif_id=alternatif.id,
+                leaving_flow=leaving_flow[index],
+                entering_flow=entering_flow[index],
+                net_flow=net_flow[index]
+            )
+            db.session.add(tabelPerangkingan)
+            db.session.commit()
+
+        view_columns = [tabelRanking.peringkat, tabelRanking.alternatif_akun,
+                        tabelRanking.leaving_flow, tabelRanking.entering_flow,
+                        tabelRanking.net_flow, tabelAlternative.total_follower,
+                        tabelAlternative.overall_engagement, tabelAlternative.average_view,
+                        tabelAlternative.harga, tabelAlternative.kategori, tabelRanking.alternatif_id]
+
+        data_ranking = db.session.query(*view_columns).join(tabelAlternative, tabelRanking.alternatif_id == tabelAlternative.id)
+        return render_template("/home/tabel_perangkingan.html", data_ranking=data_ranking)

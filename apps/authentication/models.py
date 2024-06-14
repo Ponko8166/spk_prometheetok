@@ -139,13 +139,13 @@ class tabelAlternative(db.Model):
     average_likes = db.Column(db.Integer) # Benefit
     average_share = db.Column(db.Integer) # Benefit
     harga = db.Column(db.Integer) # Cost
-    keterangan = db.Column(db.Text)
+    kategori = db.Column(db.Text)
 
     # Definisikan relasi dengan tabel_peringkat
     rankings = db.relationship('tabelRanking', back_populates='alternatif')
 
     def __init__(self, alternatif_akun, total_follower, total_likes, overall_engagement, 
-                 likes_rate, shares_rate, average_view, average_likes, average_share, harga, keterangan):
+                 likes_rate, shares_rate, average_view, average_likes, average_share, harga, kategori):
         self.alternatif_akun = alternatif_akun
         self.total_follower = total_follower
         self.total_likes = total_likes
@@ -156,4 +156,4 @@ class tabelAlternative(db.Model):
         self.average_likes = average_likes
         self.average_share = average_share
         self.harga = harga
-        self.keterangan = keterangan
+        self.kategori = kategori
